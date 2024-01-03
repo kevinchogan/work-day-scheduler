@@ -1,7 +1,58 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-$(function () {
+
+var calendarEl = $("#calendar");
+var currentDay = dayjs();
+var curDayStr = currentDay.format('dddd, MMMM D, YYYY')
+var curDayEl = $("#currentDay");
+
+function makeHour(hourIndex) {
+  let hourEl = $("<div>");
+  let timeEl = $("<div>");
+  let textAreaEl = $("<textarea>");
+  let buttonEl = $("<button>");
+  let italicEl = $("<i>");
+
+  let hourID = "hour-" + hourIndex;
+  let hourClass;
+  let currentHour = dayjs().hour(hourIndex);
+
+  if (hourIndex < currentDay.hour()) {
+    hourClass = "past"
+  } else if (hourIndex === currentDay.hour()) {
+    hourClass = "present"
+  } else {
+    hourClass = "future"
+  }
+  
+  hourEl.attr("id", hourID);
+  hourEl.attr("class", "row time-block");
+  hourEl.addClass(hourClass);
+  timeEl.attr("class", "col-2 col-md-1 hour text-center py-3");
+  textAreaEl.attr("class", "col-8 col-md-10 description");
+  textAreaEl.attr("rows", "3");
+  buttonEl.attr("class", "btn saveBtn col-2 col-md-1");
+  buttonEl.attr("aria-label", "save");
+  italicEl.attr("class", "fas fa-save");
+  italicEl.attr("aria-hidden", "true");
+
+  timeEl.text(currentHour.format("hA"));
+
+  hourEl.append(timeEl);
+  hourEl.append(textAreaEl);
+  buttonEl.append(italicEl);
+  hourEl.append(buttonEl);
+  calendarEl.append(hourEl);
+}
+
+
+curDayEl.text(curDayStr);
+for (hourIndex = 9; hourIndex < 18; hourIndex++) {
+  makeHour(hourIndex);
+}
+
+//$(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -20,4 +71,4 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-});
+//});

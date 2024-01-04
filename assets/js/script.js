@@ -4,7 +4,7 @@
 
 var calendarEl = $("#calendar");
 var currentDay = dayjs();
-var curDayStr = currentDay.format('dddd, MMMM D, YYYY')
+var curDayStr = currentDay.format('dddd, MMMM Do, YYYY')
 var curDayEl = $("#currentDay");
 
 function makeHour(hourIndex) {

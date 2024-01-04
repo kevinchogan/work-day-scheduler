@@ -49,15 +49,30 @@ textarea {
   color: white;
 }
 
-.saveBtn {
+.saveBtn,
+.saveBtnNew {
   border-left: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  background-color: #06aed5;
   color: white;
 }
 
-.saveBtn i:hover {
+.saveBtn {
+  background-color: #06aed5;
+}
+
+.saveBtnNew {
+  background-color: darkred;
+}
+
+.saveBtn i:hover,
+.saveBtnNew i:hover {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
+}
+
+#saveConfirm::after {
+  content: " localStorage ✔️";
+  color: red;
+  font-family: monospace;
 }

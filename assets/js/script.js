@@ -1,6 +1,5 @@
 $(function () {
   var saveConfirmEl = $("#saveConfirm");  // Element for the save confirmation
-  var currentDay = dayjs();               // Today 
 
   /* === makeHour ===
   Creates a new hour block based on the hourIndex (time) passed in
@@ -16,6 +15,7 @@ $(function () {
     let hourID = "hour-" + hourIndex;          // text for hour block id
     let hourClass;                             // text for the hour element class (past/present/future)
     let currentHour = dayjs().hour(hourIndex); // dayjs hour based on hour index
+    let currentDay = dayjs();                  // Today 
 
     // determines which class to assign the hour element based on time of day
     if (hourIndex < currentDay.hour()) {
@@ -53,13 +53,13 @@ $(function () {
   Updates the classes/formatting for each hour block as well as the current date in the header.
   === hourUpdate ===*/
   function hourUpdate() {
-    let curDayStr = currentDay.format("dddd, MMMM Do, YYYY");
+    let curDayStr = dayjs().format("dddd, MMMM Do, YYYY");
     let curDayEl = $("#currentDay");
     let hourEl;
     let hourIndex;
+    let currentHour;
 
-    // for testing purposes REMOVE
-    console.log("hourUpdate has run");
+    currentHour = dayjs().hour();
 
     // displays the current day in the header
     curDayEl.text(curDayStr);
@@ -69,41 +69,23 @@ $(function () {
       hourEl = $(this);
       hourIndex = parseInt(hourEl.attr("id").substr(5));
 
-      if (hourIndex < currentDay.hour()) {
+      if (hourIndex < currentHour) {
         if (!hourEl.hasClass("past")) {
           hourEl.removeClass("present");
           hourEl.removeClass("future");
           hourEl.addClass("past");
-          // for testing purposes REMOVE
-          console.log(
-            "Hour update successfully changed " +
-              hourEl.attr("id") +
-              " to the past."
-          );
         }
-      } else if (hourIndex == currentDay.hour()) {
+      } else if (hourIndex == currentHour) {
         if (!hourEl.hasClass("present")) {
           hourEl.removeClass("past");
           hourEl.removeClass("future");
           hourEl.addClass("present");
-          // for testing purposes REMOVE
-          console.log(
-            "Hour update successfully changed " +
-              hourEl.attr("id") +
-              " to the present."
-          );
         }
       } else {
         if (!hourEl.hasClass("future")) {
           hourEl.removeClass("past");
           hourEl.removeClass("present");
           hourEl.addClass("future");
-          // for testing purposes REMOVE
-          console.log(
-            "Hour update successfully changed " +
-              hourEl.attr("id") +
-              " to the future."
-          );
         }
       }
     });
@@ -185,5 +167,5 @@ $(function () {
   textInputEl.on("click", handleNew);
 
   // updates the past/present/future formatting every minute
-  var interval = setInterval(hourUpdate, 60000);
+  setInterval(hourUpdate, 60000);
 });

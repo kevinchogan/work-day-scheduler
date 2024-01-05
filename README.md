@@ -20,6 +20,7 @@ N/A
 - Hour segments in the future are shown in green
 - Click on any hour segment to add a new meeting or task
 - Click on the save icon to the right of the task to save that task to localStorage
+- Click on the 'Clear' button at the bottom of the page to clear all storage
 
 ## Credits
 - Font Awesome is copyright © Fonticons, Inc.

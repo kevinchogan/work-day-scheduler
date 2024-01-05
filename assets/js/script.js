@@ -1,5 +1,7 @@
 $(function () {
   var saveConfirmEl = $("#saveConfirm");  // Element for the save confirmation
+  var emptyStatusEl = $("#emptyStatus");  // Empty status element
+  var clearButtonEl = $("#clearStorage"); // Clear storage button element
 
   /* === makeHour ===
   Creates a new hour block based on the hourIndex (time) passed in
@@ -118,6 +120,7 @@ $(function () {
     btnClicked.addClass("saveBtn");
     // shows the savce confirmation in the header
     saveConfirmEl.show();
+    emptyStatusEl.hide();
   }
 
   /* === handleNew ===
@@ -136,6 +139,7 @@ $(function () {
     saveBtn.addClass("saveBtnNew");
     // hides the save confirmation in the header
     saveConfirmEl.hide();
+    emptyStatusEl.show();
   }
 
   /* === getStorage ===
@@ -151,6 +155,20 @@ $(function () {
       value = localStorage.getItem(hourID);
       textElStr = "#" + hourID + " .description";
       $(textElStr).val(value);
+    }
+  }
+
+  /* === handleClear ===
+  Pulls all of the inputs for each hour element from localStorage
+  === handleClear ===*/ 
+  function handleClear() {
+    for (let hourIndex = 9; hourIndex < 18; hourIndex++) {
+      hourID = "hour-" + hourIndex;
+      value = localStorage.removeItem(hourID);
+      textElStr = "#" + hourID + " .description";
+      $(textElStr).val("");
+      saveConfirmEl.hide();
+      emptyStatusEl.show();
     }
   }
 
@@ -175,4 +193,7 @@ $(function () {
 
   // updates the past/present/future formatting every minute
   setInterval(hourUpdate, 60000);
+
+  // clear storage button listener
+  clearButtonEl.on("click", handleClear)
 });

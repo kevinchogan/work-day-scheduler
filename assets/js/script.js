@@ -124,8 +124,10 @@ $(function () {
     // send entry to localStorage
     if (!value) {
       localStorage.removeItem(parentID);
+      saveConfirmEl.text("Appointment cleared from ")
     } else {
       localStorage.setItem(parentID, value);
+      saveConfirmEl.text("Appointment added to ")
     }
 
     // updates class for button when text has been edited
@@ -181,8 +183,9 @@ $(function () {
       value = localStorage.removeItem(hourID);
       textElStr = "#" + hourID + " .description";
       $(textElStr).val("");
-      saveConfirmEl.hide();
-      emptyStatusEl.show();
+      saveConfirmEl.text("All appointments cleared from ")
+      saveConfirmEl.show();
+      emptyStatusEl.hide();
     }
   }
 

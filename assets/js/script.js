@@ -100,12 +100,19 @@ $(function () {
     var value = btnClicked.siblings(".description").val(); // input text
     event.preventDefault();
 
-    // exits function if there is no parent ID or text
-    if (!parentID || !value) {
+    // exits function if there is no parent ID
+    if (!parentID) {
+      console.log("save failed - no parent");
       return;
     }
+    
     // send entry to localStorage
-    localStorage.setItem(parentID, value);
+    if (!value) {
+      localStorage.setItem(parentID, "");
+    } else {
+      localStorage.setItem(parentID, value);
+    }
+
     // updates class for button when text has been edited
     btnClicked.removeClass("saveBtnNew");
     btnClicked.addClass("saveBtn");

@@ -123,7 +123,7 @@ $(function () {
     
     // send entry to localStorage
     if (!value) {
-      localStorage.setItem(parentID, "");
+      localStorage.removeItem(parentID);
     } else {
       localStorage.setItem(parentID, value);
     }

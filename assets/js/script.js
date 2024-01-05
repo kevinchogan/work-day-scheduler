@@ -118,7 +118,7 @@ $(function () {
     // updates class for button when text has been edited
     btnClicked.removeClass("saveBtnNew");
     btnClicked.addClass("saveBtn");
-    // shows the savce confirmation in the header
+    // shows the save confirmation in the header
     saveConfirmEl.show();
     emptyStatusEl.hide();
   }
